@@ -1,4 +1,4 @@
-import { BrowserRouter, Route,Redirect } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
 import Home from '../pages/home.js';
 import User from '../pages/cadastroUsuario.js'

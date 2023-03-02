@@ -1,12 +1,13 @@
-import Menu from './menu.js';
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import '../css/cpedido.css';
 import '../css/index.css';
-import React, { Component } from 'react';
+import { api, options } from '../global.js';
+import Menu from './menu.js';
 
 const records = [
     { nomePedido: 'Bife acebolado', descricaoPedido: 'Belo bife acebolado!! Belo bife acebolado!! Belo bife acebolado!! Belo bife acebolado!! Belo bife acebolado!!', nomeRestaurante: 'Restaurante 1', tempoMedioPreparo: '33min', preco: 'R$: 35,00', img: 'https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/Ceqy-Ye8N3S-QGyR5flge0w8r62TBYVFwpkDTpsgi4S15AlWiBuSRb3ZCqQqmHN1/n/oraclemetodista/b/bucket-teste/o/bife-acebolado1.jpg' },
@@ -14,18 +15,16 @@ const records = [
     { nomePedido: 'Bife acebolado', descricaoPedido: 'Belo bife acebolado!! Belo bife acebolado!! Belo bife acebolado!! Belo bife acebolado!! Belo bife acebolado!!', nomeRestaurante: 'Restaurante 3', tempoMedioPreparo: '33min', preco: 'R$: 80,00', img: 'https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/yT0Fsm8BsJllaXoUUD-qVlwxOq9OrqvCCU0p0eWZ90zaSM3YIB-5L3cSIimwKy2Q/n/oraclemetodista/b/bucket-teste/o/bife-acebolado3.jpg' }
 ]
 
-export default class Restaurant extends Component {
+export default class Pedido extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { pedido: [] }
+        this.state = { pedido: records }
     }
 
     componentDidMount() {
-        // Simple GET request using fetch
-        fetch(apiUrl + apiV1 + '/RESTAURANT/1.0/restaurant')
-            .then(response => response.json())
-            .then(data => this.setState({ pedido: data }));
+        api.get('/RESTAURANT/1.0/restaurant', options)
+            .then(response => this.setState({ pedido: response.data }))
     }
 
     submitPedido(e) {

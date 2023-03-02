@@ -1,4 +1,3 @@
-import Menu from './menu.js';
 import Form from 'react-bootstrap/Form'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
@@ -31,7 +30,7 @@ export default class Login extends Component {
         }
 
         submitForm(){
-            if(this.state.password == '12345'){
+            if(this.state.password === '12345'){
                 this.setState(prevState => {
                     let nextState = Object.assign({},prevState);
                     nextState.redirect = true;

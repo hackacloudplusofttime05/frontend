@@ -1,12 +1,13 @@
-import Menu from './menu.js';
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import '../css/cusuario.css';
 import '../css/index.css';
-import React, { Component } from 'react';
+import { api, options } from '../global';
+import Menu from './menu.js';
 
 const emptyfields = {
     email: '',
@@ -34,17 +35,11 @@ export default class User extends Component {
     }
 
     submitForm() {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state)
-        };
-        fetch(apiUrl + apiV1 + '/USER/1.0/user', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                alert(JSON.stringify(data))
+        api.post('/USER/1.0/user', this.state, options)
+            .then(response => {
+                alert(JSON.stringify(response.data))
                 this.setState(Object.assign({}, emptyfields))
-            });
+            })
     }
 
     render() {

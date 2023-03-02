@@ -1,13 +1,13 @@
-import Menu from './menu.js';
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import '../css/cprato.css';
 import '../css/index.css';
-import React, { Component } from 'react';
-import { apiUrl, apiV1 } from '../global.js';
+import { api, options } from '../global.js';
+import Menu from './menu.js';
 
 const emptyfields = {
     nome: '',
@@ -36,17 +36,11 @@ export default class Food extends Component {
     }
 
     submitForm() {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state)
-        };
-        fetch(apiUrl + apiV1 + '/FOOD/1.0/food', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                alert(JSON.stringify(data))
+        api.post('/FOOD/1.0/food', this.state, options)
+            .then(response => {
+                alert(JSON.stringify(response.data))
                 this.setState(Object.assign({}, emptyfields))
-            });
+            })
     }
 
     render() {
